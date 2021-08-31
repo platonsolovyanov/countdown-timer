@@ -9,6 +9,12 @@ export const Timer = (props) => {
     Date.now() + seconds * 1000
   )
 
+  function finishHandler (finish) {
+    setFinalTime(
+        `${finish.getHours()}h : ${finish.getMinutes()}m : ${finish.getSeconds()}s : ${finish.getMilliseconds()}ml`
+    )
+  }
+
   useEffect(() => {
     const timerId = setInterval(function () {        
       let now = new Date().getTime()      
@@ -23,19 +29,19 @@ export const Timer = (props) => {
     }, 1)
     if (time.seconds == 0 && time.milliseconds < 50) {
       const dateNow = new Date()
-      setFinalTime(
-        `${dateNow.getHours()}h : ${dateNow.getMinutes()}m : ${dateNow.getSeconds()}s : ${dateNow.getMilliseconds()}ml`
-      )
+      finishHandler(dateNow)    
     }
     return () => clearInterval(timerId)
   }, [time])
 
   return (
-    <div key={props.key}>
-      <p>
-        {time.seconds} : {time.milliseconds}
-      </p>
-      <p>{FinalTime}</p>
+    <div>
+        <p>
+            {time.seconds} : {time.milliseconds}
+        </p>
+        <p>
+          {FinalTime}
+        </p>
     </div>
   )
 }
