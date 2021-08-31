@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import { Timer } from './components/Timer'
 
 export function App() {
-  const [startNewTimer, setStartNewTimer] = useState([1, 1])
+  const [startNewTimer, setStartNewTimer] = useState([1])
   return (
     <AppWrapper>
       <ol type="1">
