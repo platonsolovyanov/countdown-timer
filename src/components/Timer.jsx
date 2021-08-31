@@ -1,24 +1,25 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 
-export const Timer = (props) => {
-    const {seconds} = props
+import styled from 'styled-components'
+
+export const Timer = ({ seconds }) => {
   const [time, setTime] = useState({ seconds: 0, milliseconds: 1000 })
   const [FinalTime, setFinalTime] = useState('')
   const [countDownDate, setCountDownDate] = useState(
     Date.now() + seconds * 1000
   )
 
-  function finishHandler (finish) {
+  function finishHandler(finish) {
     setFinalTime(
-        `${finish.getHours()}h : ${finish.getMinutes()}m : ${finish.getSeconds()}s : ${finish.getMilliseconds()}ml`
+      `${finish.getHours()}h : ${finish.getMinutes()}m : ${finish.getSeconds()}s : ${finish.getMilliseconds()}ml`
     )
   }
 
   useEffect(() => {
-    const timerId = setInterval(function () {        
-      let now = new Date().getTime()      
-      let distance = countDownDate - now      
+    const timerId = setInterval(function () {
+      let now = new Date().getTime()
+      let distance = countDownDate - now
       if (distance >= 0) {
         setTime({
           ...time,
@@ -29,19 +30,28 @@ export const Timer = (props) => {
     }, 1)
     if (time.seconds == 0 && time.milliseconds < 50) {
       const dateNow = new Date()
-      finishHandler(dateNow)    
+      finishHandler(dateNow)
     }
     return () => clearInterval(timerId)
   }, [time])
 
   return (
     <div>
-        <p>
-            {time.seconds} : {time.milliseconds}
-        </p>
-        <p>
-          {FinalTime}
-        </p>
+      <TimerP>
+        {time.seconds} : {time.milliseconds}
+      </TimerP>
+      <FinishTimeTimerP>{FinalTime}</FinishTimeTimerP>
     </div>
   )
 }
+
+
+const TimerP = styled.p`
+  font-size: 18px;
+  color: #344859;
+`
+
+const FinishTimeTimerP = styled.p`
+    font-size: 21px;
+    color: #344859;
+`
