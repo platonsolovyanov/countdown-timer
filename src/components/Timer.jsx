@@ -45,13 +45,12 @@ export const Timer = ({ seconds }) => {
   )
 }
 
-
 const TimerP = styled.p`
   font-size: 18px;
   color: #344859;
 `
 
 const FinishTimeTimerP = styled.p`
-    font-size: 21px;
-    color: #344859;
+  font-size: 21px;
+  color: #344859;
 `
