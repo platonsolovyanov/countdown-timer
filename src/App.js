@@ -2,25 +2,38 @@ import React from 'react'
 import { useState } from 'react'
 
 import styled from 'styled-components'
+import { useForm } from "react-hook-form";
 
 import { Timer } from './components/Timer'
 
 export function App() {
+  const { register, handleSubmit } = useForm();
+
   const [startNewTimer, setStartNewTimer] = useState([1])
+
+  const onSubmit = (data) => {
+    console.log(data)
+    setStartNewTimer([...startNewTimer, data.timeForTimer])
+  }
   return (
     <AppWrapper>
       <ol type="1">
         {startNewTimer.map((el, index) => {
           return (
             <li key={index}>
-              <Timer seconds={5} />
+              <Timer seconds={el} />
             </li>
           )
         })}
       </ol>
-      <Button onClick={() => setStartNewTimer([...startNewTimer, 1])}>
-        add timer
-      </Button>
+      <form action="" onSubmit={handleSubmit(onSubmit)}>
+        <input type="number" max={60} {...register('timeForTimer')} />
+        {/* onClick={() => setStartNewTimer([...startNewTimer, 1])} */}
+        <Button type='submit'>
+          add timer
+        </Button>
+      </form>
+      
     </AppWrapper>
   )
 }
